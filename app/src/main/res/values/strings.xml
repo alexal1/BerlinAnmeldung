@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Berlin Anmeldung</string>
+    <string name="button_text">Stop and close</string>
+    <string name="push_background_channel_name">Background Work Notification</string>
+    <string name="push_background_channel_description">We\'ll show an icon all the time while timetable check are being made</string>
+    <string name="push_timetable_channel_name">Timetable Notifications</string>
+    <string name="push_timetable_channel_description">Notifications when finding free slots in the timetable</string>
+    <string name="push_timetable_success_title">Found a Termin!</string>
+    <string name="push_timetable_success_description">Click here to open the browser</string>
+    <string name="push_timetable_fail_title">Couldn\'t check the timetable :(</string>
+    <string name="push_timetable_fail_description">Click here for detailed information</string>
+    <string name="dialog_fail_title">Timetable Check failed!</string>
+    <string name="last_check">Last checked at %s</string>
+</resources>
