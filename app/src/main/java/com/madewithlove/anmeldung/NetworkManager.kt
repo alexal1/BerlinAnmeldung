@@ -14,7 +14,7 @@ class NetworkManager(
     private val ioDispatcher: CoroutineDispatcher
 ) {
 
-    var onCheck: (@MainThread () -> Unit)? = null
+    var onCheck: (@MainThread (CheckResult) -> Unit)? = null
     var lastCheckTime: Long? = null
 
     @Volatile
@@ -24,7 +24,14 @@ class NetworkManager(
         Log.i(TAG, "Starting timetable checks!")
         areChecksRunning = true
         while (areChecksRunning) {
-            doCheck()
+            try {
+                doCheck()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error on timetable check", e)
+                withContext(mainDispatcher) {
+                    onCheck?.invoke(Fail(e.message ?: "Unknown error"))
+                }
+            }
             delay(CHECKS_DELAY)
         }
     }
@@ -54,7 +61,7 @@ class NetworkManager(
             }
 
             lastCheckTime = System.currentTimeMillis()
-            onCheck?.invoke()
+            onCheck?.invoke(Success)
         }
     }
 

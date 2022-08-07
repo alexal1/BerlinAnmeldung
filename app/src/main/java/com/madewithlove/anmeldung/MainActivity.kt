@@ -7,6 +7,7 @@ import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import io.noties.markwon.Markwon
 import java.text.SimpleDateFormat
@@ -56,8 +57,12 @@ class MainActivity : Activity() {
         }
 
         updateLastCheckText()
-        networkManager.onCheck = {
-            updateLastCheckText()
+        networkManager.onCheck = { result ->
+            if (result is Fail) {
+                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+            } else {
+                updateLastCheckText()
+            }
         }
     }
 
