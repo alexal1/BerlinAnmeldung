@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import io.noties.markwon.Markwon
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -62,13 +61,6 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun updateLastCheckText() {
-        val currentTime = networkManager.lastCheckTime?.let {
-            dateFormat.format(networkManager.lastCheckTime)
-        } ?: "–"
-        lastCheckTextView.text = String.format(getString(R.string.last_check), currentTime)
-    }
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
 
@@ -98,6 +90,13 @@ class MainActivity : Activity() {
     override fun onDestroy() {
         super.onDestroy()
         networkManager.onCheck = null
+    }
+
+    private fun updateLastCheckText() {
+        val currentTime = networkManager.lastCheckTime?.let {
+            dateFormat.format(networkManager.lastCheckTime)
+        } ?: "–"
+        lastCheckTextView.text = String.format(getString(R.string.last_check), currentTime)
     }
 
     companion object {
